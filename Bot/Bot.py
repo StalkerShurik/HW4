@@ -43,7 +43,6 @@ async def finish_game(message):
 
 @bot.message_handler(commands=['stats'])
 async def stats(message):
-    print("HERE")
     if process_data_base.check_user(message.chat.id):
         info = process_data_base.stats(message.chat.id)
         await bot.reply_to(message, info)
@@ -203,7 +202,6 @@ async def use_heal(message):
     else:
         await bot.reply_to(message, "Firstly start game")
 
-print("Start")
 async def scheduler():
     while True:
         await aioschedule.run_pending()
