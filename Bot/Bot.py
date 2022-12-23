@@ -1,20 +1,12 @@
 import asyncio
 import aioschedule
 from telebot.async_telebot import AsyncTeleBot
-from telebot import types
-
 import process_data_base
-import items
+
+from telebot import asyncio_helper
 
 API_TOKEN = '5689308747:AAFhokmXSdBhYSRdPDh3325j0t61LdRnbsg'
 bot = AsyncTeleBot(API_TOKEN)
-
-
-# async def beep(chat_id) -> None:
-#     """Send the beep message."""
-#     await bot.send_message(chat_id, text='Beep!')
-#     aioschedule.clear(chat_id)
-
 
 @bot.message_handler(commands=['start'])
 async def send_welcome(message):
@@ -51,6 +43,7 @@ async def finish_game(message):
 
 @bot.message_handler(commands=['stats'])
 async def stats(message):
+    print("HERE")
     if process_data_base.check_user(message.chat.id):
         info = process_data_base.stats(message.chat.id)
         await bot.reply_to(message, info)
@@ -210,7 +203,7 @@ async def use_heal(message):
     else:
         await bot.reply_to(message, "Firstly start game")
 
-
+print("Start")
 async def scheduler():
     while True:
         await aioschedule.run_pending()
